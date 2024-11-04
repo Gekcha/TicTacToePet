@@ -15,6 +15,7 @@ namespace TicTacToe
     {
         bool turn = true;
         int turn_count = 0;
+        List<Button> temp = new List<Button>();
 
         public TTTForm()
         {
@@ -28,11 +29,23 @@ namespace TicTacToe
 
         private void buttonClick(object sender, EventArgs e)
         {
-            if (turn_count == 9) return;
-
             Button b = (Button)sender;
 
             if (b.Text != "") return;
+
+            temp.Add(b);
+
+            if (turn_count == 6)
+            {
+                temp[0].Text = "";
+                temp.RemoveAt(0);
+                turn_count--;
+            }
+
+            if (turn_count >= 5)
+            {
+                temp[0].ForeColor = Color.White;
+            }
 
             if (turn)
             {
@@ -85,13 +98,6 @@ namespace TicTacToe
 
                 MessageBox.Show(winner + " Wins!", "Grats!!!");
             }
-            else
-                if (turn_count == 9)
-            {
-                MessageBox.Show("Draw!", "Good Game!!!");
-
-            }
-
 
         }
     }
